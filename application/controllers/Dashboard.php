@@ -20,7 +20,9 @@ class Dashboard extends CI_Controller {
             ];
 			$data['username'] = $this->session->userdata('username');
             $this->load->view('templates/header', $data);
-			$this->load->view('welcome_message', $data);
+            $this->load->view('templates/sidebar');
+			$this->load->view('dashboard', $data);
+			$this->load->view('templates/footer');
 			
 		}
 		
