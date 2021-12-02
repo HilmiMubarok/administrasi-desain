@@ -15,7 +15,7 @@ class Bon extends CI_Controller {
         $data = [
             'title' => 'BON Bahan',
             'username' => $this->session->userdata('username'),
-            'bon' => $this->DashboardModel->get('bon_bahan')->result()
+            'bon' => $this->DashboardModel->get_join('bon_bahan', 'stok_bahan', 'stok_bahan.kode_bahan = bon_bahan.kode_bahan')->result()
         ];
 
         $this->load->view('templates/header', $data);
@@ -27,13 +27,14 @@ class Bon extends CI_Controller {
     public function tambah()
     {
         $data = [
+            'stok' => $this->DashboardModel->get('stok_bahan')->result(),
             'title' => 'Tambah Bon Bahan',
             'username' => $this->session->userdata('username'),
         ];
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
-        $this->load->view('bon/tambah');
+        $this->load->view('bon/tambah', $data);
         $this->load->view('templates/footer');
     }
 
@@ -41,11 +42,9 @@ class Bon extends CI_Controller {
     {
         $data = array(
             'kode_bahan'  => $this->input->post('kode_bahan'),
-            'nama_bahan'  => $this->input->post('nama_bahan'),
-            'satuan'  => $this->input->post('satuan'),
-            'jumlah_stok'  => $this->input->post('jumlah_stok'),
-            'jenis'  => $this->input->post('jenis'),
-            'keterangan'  => $this->input->post('keterangan'),
+            'tanggal_bon'  => $this->input->post('tanggal_bon'),
+            'shift'  => $this->input->post('shift'),
+            'jumlah_bon'  => $this->input->post('jumlah_bon'),
         );
         
         $save = $this->DashboardModel->save($data, 'bon_bahan');
