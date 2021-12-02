@@ -1,4 +1,9 @@
 <div class="card">
+    <?php if ($this->session->flashdata()): ?>
+		<div class="alert alert-<?= $this->session->flashdata('icon') ?> bg-<?= $this->session->flashdata('icon') ?> text-white">
+			<?= $this->session->flashdata('pesan') ?>
+		</div>
+	<?php endif ?>
     <div class="card-body">
         <a href="<?= base_url('stok/tambah') ?>" class="mb-3 btn btn-primary"><span class="mdi mdi-plus"></span> Tambah Stok</a>
         <table class="table table-bordered table-stripped table-hover">
@@ -29,7 +34,7 @@
                     <td><?= $data->keterangan ?></td>
                     <td>
                         <a href="<?= base_url('stok/edit/'). $data->kode_bahan ?>" class="btn btn-success">Edit</a>
-                        <a href="<?= base_url('stok/hapus/'). $data->kode_bahan ?>" class="btn btn-danger">Hapus</a>
+                        <a href="<?= base_url('stok/hapus/'). $data->kode_bahan ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
                     </td>
                 </tr>
             <?php endforeach ?>
