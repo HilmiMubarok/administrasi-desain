@@ -33,6 +33,7 @@
                     <td><?= $data->jenis ?></td>
                     <td><?= $data->keterangan ?></td>
                     <td>
+                        <a href="<?= base_url('stok/detail/'). $data->kode_bahan ?>" class="btn btn-primary">Detail</a>
                         <a href="<?= base_url('stok/edit/'). $data->kode_bahan ?>" class="btn btn-success">Edit</a>
                         <a href="<?= base_url('stok/hapus/'). $data->kode_bahan ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
                     </td>

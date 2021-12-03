@@ -28,6 +28,23 @@ class Stok extends CI_Controller {
         
     }
 
+    public function detail($kode_bahan)
+    {
+        $get = [
+            'kode_bahan' => $kode_bahan
+        ];
+        $data = [
+            'title' => 'Detail Stok Bahan',
+            'username' => $this->session->userdata('username'),
+            'stok' => $this->DashboardModel->get_by($get, 'stok_bahan')->row()
+        ];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('stok/detail', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function tambah()
     {
         $data = [
