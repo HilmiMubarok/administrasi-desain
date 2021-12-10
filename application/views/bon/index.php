@@ -34,7 +34,8 @@
                         <td><?= $data->shift ?></td>
                         <td><?= $data->jumlah_bon ?></td>
                         <td>
-                            <a href="<?= base_url('bon/edit/'). $data->id_bon ?>" class="btn btn-success">Edit</a>
+                            <a href="<?= base_url('bon/detail/'). $data->kode_bahan ?>" class="btn btn-primary">Detail</a>
+                            <a href="<?= base_url('bon/edit/'). $data->kode_bahan ?>" class="btn btn-success">Edit</a>
                             <a href="<?= base_url('bon/hapus/'). $data->id_bon ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
                         </td>
                     </tr>

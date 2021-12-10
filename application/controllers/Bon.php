@@ -24,6 +24,23 @@ class Bon extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function detail($kode_bahan)
+    {
+        $get = [
+            'bon_bahan.kode_bahan' => $kode_bahan
+        ];
+        $data = [
+            'title' => 'Detail Bon Bahan',
+            'username' => $this->session->userdata('username'),
+            'bon' => $this->DashboardModel->get_by($get, 'bon_bahan', 'stok_bahan', 'stok_bahan.kode_bahan = bon_bahan.kode_bahan')->row()
+        ];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('bon/detail', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function tambah()
     {
         $data = [
@@ -69,12 +86,13 @@ class Bon extends CI_Controller {
     public function edit($id)
     {
         $get = [
-            'kode_bahan' => $id
+            'bon_bahan.kode_bahan' => $id
         ];
         $data = [
             'title' => 'Edit Bon Bahan',
+            'stok' => $this->DashboardModel->get('stok_bahan')->result(),
             'username' => $this->session->userdata('username'),
-            'bon' => $this->DashboardModel->get_by($get, 'bon_bahan')->row()
+            'bon' => $this->DashboardModel->get_by($get, 'bon_bahan', 'stok_bahan', 'stok_bahan.kode_bahan = bon_bahan.kode_bahan')->row()
         ];
 
         $this->load->view('templates/header', $data);
@@ -87,12 +105,18 @@ class Bon extends CI_Controller {
     {
         $data = array(
             'kode_bahan'  => $this->input->post('kode_bahan'),
-            'nama_bahan'  => $this->input->post('nama_bahan'),
-            'satuan'  => $this->input->post('satuan'),
-            'jumlah_stok'  => $this->input->post('jumlah_stok'),
-            'jenis'  => $this->input->post('jenis'),
-            'keterangan'  => $this->input->post('keterangan'),
+            'tanggal_bon'  => $this->input->post('tanggal_bon'),
+            'shift'  => $this->input->post('shift'),
+            'jumlah_bon'  => $this->input->post('jumlah_bon'),
         );
+        // $data = array(
+        //     'kode_bahan'  => $this->input->post('kode_bahan'),
+        //     'nama_bahan'  => $this->input->post('nama_bahan'),
+        //     'satuan'  => $this->input->post('satuan'),
+        //     'jumlah_stok'  => $this->input->post('jumlah_stok'),
+        //     'jenis'  => $this->input->post('jenis'),
+        //     'keterangan'  => $this->input->post('keterangan'),
+        // );
 		$where = array('kode_bahan' => $this->input->post('kode_bahan'));
 
 		$update = $this->DashboardModel->update($where, $data, 'bon_bahan');

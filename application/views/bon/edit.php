@@ -1,29 +1,25 @@
 <div class="card">
     <div class="card-body">
-        <form action="<?= base_url('stok/update') ?>" method="POST">
+        <form action="<?= base_url('bon/update') ?>" method="POST">
             <div class="form-group">
                 <label>Kode Bahan</label>
-                <input type="text" name="kode_bahan" class="form-control" value="<?= $stok->kode_bahan ?>">
+                <select name="kode_bahan" class="form-control">
+                    <?php foreach($stok as $s): ?>
+                        <option value="<?= $s->kode_bahan ?>" <?= ($s->kode_bahan == $bon->kode_bahan ? "selected" : null) ?> ><?= $s->kode_bahan ?></option>
+                    <?php endforeach ?>
+                </select>
             </div>
             <div class="form-group">
-                <label>Nama Bahan</label>
-                <input type="text" name="nama_bahan" class="form-control" value="<?= $stok->nama_bahan ?>">
+                <label>Tanggal Bon</label>
+                <input type="date" name="tanggal_bon" class="form-control" value="<?= $bon->tanggal_bon ?>">
             </div>
             <div class="form-group">
-                <label>Satuan</label>
-                <input type="text" name="satuan" class="form-control" value="<?= $stok->satuan ?>">
+                <label>Shift</label>
+                <input type="text" name="shift" class="form-control" value="<?= $bon->shift ?>">
             </div>
             <div class="form-group">
-                <label>Jumlah Stok</label>
-                <input type="text" name="jumlah_stok" class="form-control" value="<?= $stok->jumlah_stok ?>">
-            </div>
-            <div class="form-group">
-                <label>Jenis</label>
-                <input type="text" name="jenis" class="form-control" value="<?= $stok->jenis ?>">
-            </div>
-            <div class="form-group">
-                <label>Keterangan</label>
-                <textarea name="keterangan" cols="30" rows="10" class="form-control"><?= $stok->keterangan ?></textarea>
+                <label>Jumlah Bon</label>
+                <input type="text" name="jumlah_bon" class="form-control" value="<?= $bon->jumlah_bon ?>">
             </div>
             <button class="btn btn-primary" type="submit">
                 Simpan
