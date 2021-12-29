@@ -140,8 +140,8 @@ class Bon extends CI_Controller {
 
     public function hapus()
     {
-        $where = array('kode_bahan' => $this->uri->segment(3));
-
+        $where = array('id_bon' => $this->uri->segment(3));
+        
 		$delete = $this->DashboardModel->delete($where, 'bon_bahan');
 
 		if ($delete) {

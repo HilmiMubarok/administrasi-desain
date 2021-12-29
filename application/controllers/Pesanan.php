@@ -13,27 +13,27 @@ class Pesanan extends CI_Controller {
     public function index()
     {
         $data = [
-            'title' => 'BON Bahan',
+            'title' => 'Pesanan',
             'username' => $this->session->userdata('username'),
-            'bon' => $this->DashboardModel->get('bon_bahan')->result()
+            'pesanan' => $this->DashboardModel->get('pesanan')->result()
         ];
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
-        $this->load->view('bon/index', $data);
+        $this->load->view('pesanan/index', $data);
         $this->load->view('templates/footer');
     }
 
     public function tambah()
     {
         $data = [
-            'title' => 'Tambah Bon Bahan',
+            'title' => 'Tambah Pesanan',
             'username' => $this->session->userdata('username'),
         ];
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
-        $this->load->view('bon/tambah');
+        $this->load->view('pesanan/tambah');
         $this->load->view('templates/footer');
     }
 

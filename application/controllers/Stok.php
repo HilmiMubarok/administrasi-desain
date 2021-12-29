@@ -28,6 +28,7 @@ class Stok extends CI_Controller {
         
     }
 
+
     public function detail($kode_bahan)
     {
         $get = [
