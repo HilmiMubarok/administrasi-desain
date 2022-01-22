@@ -39,6 +39,11 @@ class Pesanan extends CI_Controller {
 
     public function save()
     {
+
+        $this->load->library('upload');
+        echo "<pre>";
+        var_dump($this->upload);
+        var_dump($this->input->post()); die;
         $data = array(
             'kode_bahan'  => $this->input->post('kode_bahan'),
             'nama_bahan'  => $this->input->post('nama_bahan'),
