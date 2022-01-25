@@ -33,7 +33,6 @@
                         <td><?= $data->jenis_pesan ?></td>
                         <td>
                             <a href="<?= base_url('pesanan/detail/'). $data->id_pesanan ?>" class="btn btn-primary">Detail</a>
-                            <a href="<?= base_url('pesanan/edit/'). $data->id_pesanan ?>" class="btn btn-success">Edit</a>
                             <a href="<?= base_url('pesanan/hapus/'). $data->id_pesanan ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
                         </td>
                     </tr>

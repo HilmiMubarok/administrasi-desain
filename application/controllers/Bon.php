@@ -109,15 +109,7 @@ class Bon extends CI_Controller {
             'shift'  => $this->input->post('shift'),
             'jumlah_bon'  => $this->input->post('jumlah_bon'),
         );
-        // $data = array(
-        //     'kode_bahan'  => $this->input->post('kode_bahan'),
-        //     'nama_bahan'  => $this->input->post('nama_bahan'),
-        //     'satuan'  => $this->input->post('satuan'),
-        //     'jumlah_stok'  => $this->input->post('jumlah_stok'),
-        //     'jenis'  => $this->input->post('jenis'),
-        //     'keterangan'  => $this->input->post('keterangan'),
-        // );
-		$where = array('kode_bahan' => $this->input->post('kode_bahan'));
+		$where = array('id_bon' => $this->input->post('id_bon'));
 
 		$update = $this->DashboardModel->update($where, $data, 'bon_bahan');
 

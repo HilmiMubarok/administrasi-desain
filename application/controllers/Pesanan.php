@@ -41,105 +41,121 @@ class Pesanan extends CI_Controller {
     {
 
         $this->load->library('upload');
-        echo "<pre>";
-        var_dump($this->upload);
-        var_dump($this->input->post()); die;
-        $data = array(
-            'kode_bahan'  => $this->input->post('kode_bahan'),
-            'nama_bahan'  => $this->input->post('nama_bahan'),
-            'satuan'  => $this->input->post('satuan'),
-            'jumlah_stok'  => $this->input->post('jumlah_stok'),
-            'jenis'  => $this->input->post('jenis'),
-            'keterangan'  => $this->input->post('keterangan'),
-        );
-        
-        $save = $this->DashboardModel->save($data, 'bon_bahan');
+        $config['upload_path'] = './assets/images/uploads';
+        $config['allowed_types'] = 'jpg|png|jpeg|gif';
+        $config['file_name'] = $_FILES['gambar']['name'];
 
-        if ($save) {
-            $data = array(
-                'pesan' => 'Data Berhasil Disimpan',
-                'icon'  => 'success'
-            );
-            $this->session->set_flashdata($data);
-            redirect("bon");
+
+        $this->upload->initialize($config);
+
+        if (!empty($_FILES['gambar']['name'])) {
+            if ( $this->upload->do_upload('gambar') ) {
+                $foto = $this->upload->data();
+                $data = array(
+                    'tanggal_pesan'  => $this->input->post('tanggal_pesan'),
+                    'pemesanan'  => $this->input->post('pemesanan'),
+                    'panjang'  => $this->input->post('panjang'),
+                    'lebar'  => $this->input->post('lebar'),
+                    'jumlah_pesan'  => $this->input->post('jumlah_pesan'),
+                    'gambar'  => $foto['file_name'],
+                    'jenis_pesan'  => $this->input->post('jenis_pesan'),
+                );
+                $save = $this->DashboardModel->save($data, 'pesanan');   
+    
+                if ($save) {
+                    $data = array(
+                        'pesan' => 'Data Berhasil Disimpan',
+                        'icon'  => 'success'
+                    );
+                    $this->session->set_flashdata($data);
+                    redirect("pesanan");
+                } else {
+                    $data = array(
+                        'pesan' => 'Data Gagal Disimpan',
+                        'icon'  => 'danger'
+                    );
+                    $this->session->set_flashdata($data);
+                    redirect("pesanan");
+                }
+
+            } else {
+                echo "<pre>";
+                var_dump($this->upload->error_msg[0]);
+            }
         } else {
             $data = array(
-                'pesan' => 'Data Gagal Disimpan',
-                'icon'  => 'danger'
+                'tanggal_pesan'  => $this->input->post('tanggal_pesan'),
+                'pemesanan'  => $this->input->post('pemesanan'),
+                'panjang'  => $this->input->post('panjang'),
+                'lebar'  => $this->input->post('lebar'),
+                'jumlah_pesan'  => $this->input->post('jumlah_pesan'),
+                'gambar'  => "placeholder.jpg",
+                'jenis_pesan'  => $this->input->post('jenis_pesan'),
             );
-            $this->session->set_flashdata($data);
-            redirect("bon");
+            $save = $this->DashboardModel->save($data, 'pesanan');   
+    
+            if ($save) {
+                $data = array(
+                    'pesan' => 'Data Berhasil Disimpan',
+                    'icon'  => 'success'
+                );
+                $this->session->set_flashdata($data);
+                redirect("pesanan");
+            } else {
+                $data = array(
+                    'pesan' => 'Data Gagal Disimpan',
+                    'icon'  => 'danger'
+                );
+                $this->session->set_flashdata($data);
+                redirect("pesanan");
+            }
         }
+
     }
 
-    public function edit($id)
+    public function detail($id)
     {
         $get = [
-            'kode_bahan' => $id
+            'id_pesanan' => $id
         ];
         $data = [
-            'title' => 'Edit Bon Bahan',
+            'title' => 'Detail Pesanan',
             'username' => $this->session->userdata('username'),
-            'bon' => $this->DashboardModel->get_by($get, 'bon_bahan')->row()
+            'pesanan' => $this->DashboardModel->get_by($get, 'pesanan')->row()
         ];
-
+    
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
-        $this->load->view('bon/edit', $data);
+        $this->load->view('pesanan/detail', $data);
         $this->load->view('templates/footer');
     }
 
-    public function update()
-    {
-        $data = array(
-            'kode_bahan'  => $this->input->post('kode_bahan'),
-            'nama_bahan'  => $this->input->post('nama_bahan'),
-            'satuan'  => $this->input->post('satuan'),
-            'jumlah_stok'  => $this->input->post('jumlah_stok'),
-            'jenis'  => $this->input->post('jenis'),
-            'keterangan'  => $this->input->post('keterangan'),
-        );
-		$where = array('kode_bahan' => $this->input->post('kode_bahan'));
-
-		$update = $this->DashboardModel->update($where, $data, 'bon_bahan');
-
-		if ($update) {
-			$data = array(
-				'pesan' => 'Data Berhasil Diupdate',
-				'icon'  => 'success'
-			);
-			$this->session->set_flashdata($data);
-			redirect("bon");
-		} else {
-			$data = array(
-				'pesan' => 'Data Gagal Diupdate',
-				'icon'  => 'danger'
-			);
-			$this->session->set_flashdata($data);
-			redirect("bon");
-		}
-    }
 
     public function hapus()
     {
-        $where = array('kode_bahan' => $this->uri->segment(3));
+        $where = array('id_pesanan' => $this->uri->segment(3));
 
-		$delete = $this->DashboardModel->delete($where, 'bon_bahan');
+        $foto = $this->DashboardModel->get_by($where, 'pesanan')->row();
+        $foto = $foto->gambar;
+        $path = './assets/images/uploads/';
+
+		$delete = $this->DashboardModel->delete($where, 'pesanan');
 
 		if ($delete) {
+            @unlink($path.$foto);
 			$data = array(
 				'pesan' => 'Data Berhasil Dihapus',
 				'icon'  => 'success'
 			);
 			$this->session->set_flashdata($data);
-			redirect("bon");
+			redirect("pesanan");
 		} else {
 			$data = array(
 				'pesan' => 'Data Gagal Dihapus',
 				'icon'  => 'danger'
 			);
 			$this->session->set_flashdata($data);
-			redirect("bon");
+			redirect("pesanan");
 		}
     }
     

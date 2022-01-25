@@ -116,7 +116,7 @@ class Stok extends CI_Controller {
             'jenis'  => $this->input->post('jenis'),
             'keterangan'  => $this->input->post('keterangan'),
         );
-		$where = array('kode_bahan' => $this->input->post('kode_bahan'));
+		$where = array('kode_bahan' => $this->input->post('kode'));
 
 		$update = $this->DashboardModel->update($where, $data, 'stok_bahan');
 

@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
         <form action="<?= base_url('stok/update') ?>" method="POST">
+        <input type="hidden" name="kode" value="<?= $stok->kode_bahan ?>">
             <div class="form-group">
                 <label>Kode Bahan</label>
                 <input type="text" name="kode_bahan" class="form-control" value="<?= $stok->kode_bahan ?>">

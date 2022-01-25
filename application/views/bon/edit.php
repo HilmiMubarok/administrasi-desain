@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
         <form action="<?= base_url('bon/update') ?>" method="POST">
+        <input type="hidden" name="id_bon" value="<?= $bon->id_bon ?>">
             <div class="form-group">
                 <label>Kode Bahan</label>
                 <select name="kode_bahan" class="form-control">
