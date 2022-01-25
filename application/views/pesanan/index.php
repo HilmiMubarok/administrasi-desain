@@ -27,7 +27,7 @@
                 <?php foreach($pesanan as $data): ?>
                     <tr>
                         <td><?= $data->id_pesanan ?></td>
-                        <td><?= $data->tanggal_pesan ?></td>
+                        <td><?= format_indo($data->tanggal_pesan) ?></td>
                         <td><?= $data->pemesanan ?></td>
                         <td><?= $data->jumlah_pesan ?></td>
                         <td><?= $data->jenis_pesan ?></td>
