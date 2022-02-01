@@ -38,7 +38,14 @@
         </table>
     </div>
     <div class="card-footer">
-        <a href="<?= base_url('bon/edit/'). $bon->kode_bahan ?>" class="btn btn-success">Edit</a>
-        <a href="<?= base_url('bon/hapus/'). $bon->kode_bahan ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
+    <?php 
+                            
+        //if role admin
+        if ($this->session->userdata('role') == 'admin') {
+            echo anchor('bon/edit/'. $data->kode_bahan, '<i class="fas fa-edit"></i>', ['class' => 'btn btn-warning']);
+            echo anchor('bon/hapus/'. $data->kode_bahan, '<i class="fas fa-trash"></i>', ['class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Yakin?\')']);
+        }
+    
+    ?>
     </div>
 </div>

@@ -16,7 +16,10 @@ class Dashboard extends CI_Controller {
 		{
 
             $data = [
-                'title' => 'Administrasi Desain'
+                'title' => 'Administrasi Desain',
+				'total_stok' => $this->DashboardModel->getTotal('stok_bahan'),
+				'total_bon' => $this->DashboardModel->getTotal('bon_bahan'),
+				'total_pesanan' => $this->DashboardModel->getTotal('pesanan')
             ];
 			$data['username'] = $this->session->userdata('username');
             $this->load->view('templates/header', $data);

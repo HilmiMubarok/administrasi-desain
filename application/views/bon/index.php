@@ -35,8 +35,15 @@
                         <td><?= $data->jumlah_bon ?></td>
                         <td>
                             <a href="<?= base_url('bon/detail/'). $data->kode_bahan ?>" class="btn btn-primary">Detail</a>
-                            <a href="<?= base_url('bon/edit/'). $data->kode_bahan ?>" class="btn btn-success">Edit</a>
-                            <a href="<?= base_url('bon/hapus/'). $data->id_bon ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
+                            <?php 
+                            
+                                //if role admin
+                                if ($this->session->userdata('role') == 'admin') {
+                                    echo anchor('bon/edit/'. $data->kode_bahan, '<i class="fas fa-edit"></i>', ['class' => 'btn btn-warning']);
+                                    echo anchor('bon/hapus/'. $data->kode_bahan, '<i class="fas fa-trash"></i>', ['class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Yakin?\')']);
+                                }
+                            
+                            ?>
                         </td>
                     </tr>
                 <?php endforeach ?>

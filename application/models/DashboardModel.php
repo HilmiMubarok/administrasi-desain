@@ -39,6 +39,11 @@ class DashboardModel extends CI_Model {
 		return $this->db->where($field)->delete($table);
 	}
 
+	public function getTotal($table)
+	{
+		return $this->db->get($table)->num_rows();
+	}
+
 }
 
 /* End of file DashboardModel.php */

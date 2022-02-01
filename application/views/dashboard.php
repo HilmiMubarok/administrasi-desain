@@ -12,7 +12,7 @@
             <div class="float-right">
                 <p class="mb-0 text-right">Total Stok Bahan</p>
                 <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">$65,650</h3>
+                <h3 class="font-weight-medium text-right mb-0"><?= $total_stok ?></h3>
                 </div>
             </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="float-right">
                 <p class="mb-0 text-right">Total Bon Bahan</p>
                 <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">3455</h3>
+                <h3 class="font-weight-medium text-right mb-0"><?= $total_bon ?></h3>
                 </div>
             </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="float-right">
                 <p class="mb-0 text-right">Total Pesanan</p>
                 <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">5693</h3>
+                <h3 class="font-weight-medium text-right mb-0"><?= $total_pesanan ?></h3>
                 </div>
             </div>
             </div>

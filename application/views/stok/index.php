@@ -5,7 +5,11 @@
 		</div>
 	<?php endif ?>
     <div class="card-body">
-        <a href="<?= base_url('stok/tambah') ?>" class="mb-3 btn btn-primary"><span class="mdi mdi-plus"></span> Tambah Stok</a>
+        <?php
+            if ($this->session->userdata('role') == 'admin') {
+                echo anchor('stok/tambah', '<i class="fas fa-plus"></i> Tambah Stok', ['class' => 'btn btn-primary mb-3']);
+            }
+        ?>
         <table class="table table-bordered table-stripped table-hover">
             <thead>
                 <tr>
@@ -34,8 +38,13 @@
                     <td><?= $data->keterangan ?></td>
                     <td>
                         <a href="<?= base_url('stok/detail/'). $data->kode_bahan ?>" class="btn btn-primary">Detail</a>
-                        <a href="<?= base_url('stok/edit/'). $data->kode_bahan ?>" class="btn btn-success">Edit</a>
-                        <a href="<?= base_url('stok/hapus/'). $data->kode_bahan ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
+                        <?php
+                            // if role admin 
+                            if ($this->session->userdata('role') == 'admin') {
+                                echo anchor('stok/edit/'. $data->kode_bahan, '<i class="fas fa-edit"></i>', ['class' => 'btn btn-warning']);
+                                echo anchor('stok/hapus/'. $data->kode_bahan, '<i class="fas fa-trash"></i>', ['class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Yakin?\')']);
+                            }
+                        ?>
                     </td>
                 </tr>
             <?php endforeach ?>
